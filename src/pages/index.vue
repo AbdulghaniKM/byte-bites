@@ -15,8 +15,19 @@
         `dark:text-${themeStore.getThemeColor('50')}`,
       ]"
     >
-      Meal by Category
+      Welcome to Byte-Bites, your go-to destination for delicious recipes!
     </h1>
+    <!-- Category Tabs -->
+    <div class="flex mb-8 space-x-4">
+      <Tab
+        v-for="category in filteredCategories"
+        :key="category"
+        :is-active="activeCategory === category.strCategory"
+        @click="selectCategory(category.strCategory)"
+      >
+        {{ category.strCategory }}
+      </Tab>
+    </div>
 
     <!-- Loading State -->
     <div
@@ -48,9 +59,9 @@
         :key="meal.idMeal"
         :title="meal.strMeal"
         :image="meal.strMealThumb"
-        class="transition-all duration-300 ease-in-out transform hover:scale-105"
+        :id="meal.idMeal"
+        class="transform transition-all duration-300 ease-in-out hover:scale-[1.02]"
       >
-        <!-- Add any additional meal info here -->
       </Card>
     </div>
   </div>
@@ -59,14 +70,37 @@
 <script setup>
   import Card from '@/components/Card.vue';
   import { useThemeStore } from '@/stores/useThemeStore';
-  import { onMounted, ref } from 'vue';
+  import { onMounted, ref, computed } from 'vue';
   import { useMealByCat } from '../stores/useMealByCat';
+  import { useMealsCat } from '../stores/useMealsCat';
+  import Tab from '@/components/Tab.vue';
 
   const store = useMealByCat();
+  const mealsCat = useMealsCat();
   const meals = ref([]);
   const themeStore = useThemeStore();
 
+  // Add these new refs
+  const categories = ref([]);
+  const activeCategory = ref('Beef');
+
+  // Add computed property for filtered categories
+  const filteredCategories = computed(() => {
+    return categories.value.filter((cat) => cat.strCategory !== 'Pork');
+  });
+
+  // Add this new method
+  const selectCategory = async (category) => {
+    activeCategory.value = category;
+    meals.value = await store.fetchMealsByCategory(category);
+  };
+
   onMounted(async () => {
-    meals.value = await store.fetchMealsByCategory('Seafood');
+    // If initial category is 'Pork', change it to 'Beef'
+    if (activeCategory.value === 'Pork') {
+      activeCategory.value = 'Beef';
+    }
+    meals.value = await store.fetchMealsByCategory(activeCategory.value);
+    categories.value = await mealsCat.fetchCategory();
   });
 </script>

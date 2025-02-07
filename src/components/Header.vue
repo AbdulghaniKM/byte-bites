@@ -8,13 +8,13 @@
       `border-${themeStore.getThemeColor('800')} dark:border-${themeStore.getThemeColor('300')}`,
     ]"
   >
-    <div class="container mx-auto px-4">
+    <div class="container px-4 mx-auto">
       <!-- Desktop Menu -->
-      <div class="hidden items-center justify-between sm:flex">
+      <div class="items-center justify-between hidden sm:flex">
         <div class="flex items-center space-x-8">
           <router-link
             to="/"
-            class="transform text-2xl font-bold text-white transition-transform duration-200 hover:scale-105"
+            class="text-2xl font-bold text-white transition-transform duration-200 transform hover:scale-105"
           >
             Byte-Bites
           </router-link>
@@ -37,16 +37,16 @@
       <div class="flex items-center justify-between sm:hidden">
         <router-link
           to="/"
-          class="transform text-xl font-bold text-white transition-transform duration-200 hover:scale-105"
+          class="text-xl font-bold text-white transition-transform duration-200 transform hover:scale-105"
         >
-          AnimalLens
+          Byte-Bites
         </router-link>
         <button
           @click="toggleMenu"
-          class="relative z-50 rounded-lg p-2 text-white"
+          class="relative z-50 p-2 text-white rounded-lg"
           aria-label="Toggle menu"
         >
-          <div class="relative h-6 w-6">
+          <div class="relative w-6 h-6">
             <div
               :class="[
                 'absolute h-0.5 w-6 transform bg-current transition-all duration-300',
@@ -84,7 +84,7 @@
             isMenuOpen ? 'translate-x-0' : 'translate-x-full',
           ]"
         >
-          <div class="flex h-full flex-col p-6">
+          <div class="flex flex-col h-full p-6">
             <nav class="space-y-4">
               <router-link
                 v-for="link in navigationLinks"
@@ -118,10 +118,7 @@
   const themeStore = useThemeStore();
   const isMenuOpen = ref(false);
 
-  const navigationLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Categories', path: '/categories' },
-  ];
+  const navigationLinks = [];
 
   function toggleMenu() {
     isMenuOpen.value = !isMenuOpen.value;
