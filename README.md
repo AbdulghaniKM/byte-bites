@@ -1,46 +1,34 @@
-# Vue-Tailwind-ShadCN Starter Template
+# 🍽️ Byte-Bites
 
 ## Overview
 
-A modern, production-ready starter template for building Vue.js applications with the power of Tailwind CSS and ShadCN components. This template emphasizes developer experience, performance, and best practices.
+Byte-Bites is a modern recipe discovery platform built with Vue.js, featuring a curated collection of meals from around the world. The application offers an intuitive interface for exploring recipes across different categories, with detailed cooking instructions and ingredients lists.
 
-## Live Demo
+[Live Demo](https://byte-bites.vercel.app/)
 
-[Live Demo](https://vue-project-pack.vercel.app/)
+## ⚡️ Features
 
-## ⚡️ Key Technologies
+- 🌐 Browse recipes by categories
+- 🔍 Detailed recipe information including:
+  - Ingredients with measurements
+  - Step-by-step cooking instructions
+  - Recipe images
+  - YouTube video tutorials (when available)
+- 🎨 Theme customization with multiple color schemes
+- 🌙 Dark/Light mode support
+- 📱 Responsive design for all devices
+- ⚡️ Fast and smooth navigation
+- 💾 Persistent data storage
 
-- 🚀 Vue 3 with Composition API
-- 🎨 Tailwind CSS for utility-first styling
-- 🧩 ShadCN for beautiful, accessible UI components
-- 📱 Vue Router for seamless navigation
-- ⚡️ Vite for lightning-fast development
-- 🌟 Pinia for state management
-- 🖼️ Iconify Icons for high-quality icons
-- 🌐 Axios for HTTP requests
+## 🛠️ Tech Stack
 
-## ✨ Features
-
-### Modern Development Stack
-
-- Vue 3 Composition API with script setup syntax
-- Single File Components (SFCs) for modular development
-- State management with Pinia
-- High-quality icons via Iconify
-
-### Pre-configured Tools
-
-- Vue Router with automatic route generation
-- Tailwind CSS with custom configuration and dark mode support
-- ShadCN components pre-styled and ready to use
-- Prettier and prettier-plugin-tailwindcss for consistent code style
-- TailwindCSS animation plugins for enhanced UI interactions
-
-### Architecture
-
-- Scalable folder structure following Vue best practices
-- Component-driven development approach
-- Type-safe development environment
+- **Frontend Framework**: Vue 3 with Composition API
+- **Styling**: Tailwind CSS + ShadCN UI
+- **State Management**: Pinia with persistence
+- **Routing**: Vue Router
+- **HTTP Client**: Axios
+- **Icons**: Iconify
+- **API**: TheMealDB
 
 ## 🚀 Getting Started
 
@@ -54,8 +42,8 @@ A modern, production-ready starter template for building Vue.js applications wit
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/AbdulghaniKM/vue-project-pack.git
-cd vue-project-pack
+git clone https://github.com/AbdulghaniKM/byte-bites.git
+cd byte-bites
 ```
 
 2. Install dependencies:
@@ -64,93 +52,73 @@ cd vue-project-pack
 npm install
 ```
 
-### Running the Development Server
+3. Start the development server:
 
 ```bash
 npm run dev
 ```
 
-### Project Structure
+## 📁 Project Structure
 
 ```bash
-vue-project-pack/
-├── public/ # Static assets
+byte-bites/
 ├── src/
-│ ├── assets/ # Project assets
-│ │ └── css/ # Global CSS files
-│ ├── components/ # Reusable Vue components
-│ │ └── ui/ # ShadCN UI components
-│ ├── lib/ # Utility functions
-│ ├── pages/ # Vue Router page components
-│ ├── router/ # Vue Router configuration
-│ ├── stores/ # Pinia state management stores
-│ ├── App.vue # Root component
-│ └── main.js # Application entry point
-├── .prettierrc # Prettier configuration
-├── .vscode/ # VS Code settings
-├── components.json # ShadCN components configuration
-├── index.html # Entry HTML file
-├── jsconfig.json # JavaScript configuration
-├── package.json # Project dependencies and scripts
-├── postcss.config.js # PostCSS configuration
-├── tailwind.config.js # Tailwind CSS configuration
-├── vite.config.js # Vite configuration
-└── README.md # Project documentation
+│ ├── components/ # Reusable components
+│ │ ├── ui/ # ShadcnUI components
+│ │ └── ... # Custom components
+│ ├── pages/ # Route pages
+│ ├── stores/ # Pinia stores
+│ │ ├── useMealByCat.js # Category-based meals
+│ │ ├── useMealsCat.js # Categories list
+│ │ └── useThemeStore.js # Theme management
+│ └── App.vue # Root component
 ```
 
-### Scripts
+## 🎨 Features in Detail
 
-```bash
-npm run dev: Start the development server.
-npm run build: Build the application for production.
-npm run preview: Preview the production build locally.
-```
+### Recipe Categories
 
-### Configuration
+- Browse meals by categories
+- Persistent category selection
+- Loading states with skeletons
+- Error handling
 
-#### Tailwind CSS
+### Theme System
 
-Custom configurations can be made in tailwind.config.js.
-Additional styles can be added in src/assets/css/index.css.
+- Multiple color themes
+- Dark/Light mode toggle
+- Persistent theme preferences
+- Smooth transitions
 
-#### Vue Router
+### Responsive Design
 
-Add or modify routes in src/router/index.js.
-Page components are stored in src/pages/.
+- Mobile-first approach
+- Adaptive layouts
+- Touch-friendly interactions
+- Optimized images
 
-#### Pinia
+## 🌐 API Integration
 
-State management stores are located in src/stores/.
+Byte-Bites uses [TheMealDB API](https://www.themealdb.com/api.php) for recipe data:
 
-#### Versions
+- Category listings
+- Meal listings by category
+- Detailed meal information
+- Ingredient images
 
-Vue.js: ^3.5.13
-Vue Router: ^4.5.0
-Tailwind CSS: ^3.4.17
-Radix-vue: ^1.9.12
-Pinia: ^2.3.1
-Axios: ^1.7.9
-Iconify: ^4.3.0
+## 🤝 Contributing
 
-#### Dependencies
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-Utility Libraries : class-variance-authority, clsx, tailwind-merge
-Animations : tailwindcss-animate, tailwindcss-motion
-Icons : @iconify/vue
+## 📝 License
 
-#### Dev Dependencies
+This project is open source and available under the [MIT License](LICENSE).
 
-Build Tools : vite, @vitejs/plugin-vue
-PostCSS Plugins : autoprefixer, postcss
-Code Formatting : prettier, prettier-plugin-tailwindcss
+## 🙏 Acknowledgments
 
-#### Contributing
-
-Feel free to fork the repository and submit pull requests. All contributions are welcome!
-
-#### Support
-
-For questions or help, feel free to reach out via GitHub Issues.
+- Recipe data provided by [TheMealDB](https://www.themealdb.com/)
+- UI components from [shadcn-vue](https://www.shadcn-vue.com/)
+- Icons from [Iconify](https://iconify.design/)
 
 ## 🌟 Show your support
 
