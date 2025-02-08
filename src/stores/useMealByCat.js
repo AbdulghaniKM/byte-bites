@@ -6,22 +6,34 @@ export const useMealByCat = defineStore(
   'mealByCat',
   () => {
     const meals = ref([]);
+    const categoryMeals = ref({});
     const isLoading = ref(false);
     const error = ref(null);
     const currentCategory = ref('Beef');
 
     const fetchMealsByCategory = async (category) => {
-      // Remove the caching check to always fetch fresh data
+      // For single category view (home page)
       isLoading.value = true;
       error.value = null;
-      meals.value = []; // Clear current meals while loading
+      meals.value = [];
 
       try {
+        // If we already have this category cached, use it
+        if (categoryMeals.value[category]) {
+          meals.value = categoryMeals.value[category];
+          currentCategory.value = category;
+          return meals.value;
+        }
+
         const response = await axios.get(
           `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
         );
+
+        // Store in both places
         meals.value = response.data.meals;
+        categoryMeals.value[category] = response.data.meals;
         currentCategory.value = category;
+
         return meals.value;
       } catch (err) {
         error.value = err.message;
@@ -33,6 +45,7 @@ export const useMealByCat = defineStore(
 
     return {
       meals,
+      categoryMeals,
       isLoading,
       error,
       currentCategory,
@@ -41,7 +54,7 @@ export const useMealByCat = defineStore(
   },
   {
     persist: {
-      paths: ['currentCategory'] // Only persist the selected category, not the meals
+      paths: ['categoryMeals', 'currentCategory'] // Persist both category meals and current selection
     }
   }
 );

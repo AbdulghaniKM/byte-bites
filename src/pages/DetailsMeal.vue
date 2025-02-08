@@ -29,23 +29,25 @@
     </div>
     <div
       v-else-if="meal"
-      class="mx-auto max-w-6xl"
+      class="max-w-6xl mx-auto"
     >
-      <button
+      <Button
         @click="router.back()"
         :class="[
-          'mb-6 flex items-center gap-2 rounded-full px-4 py-2',
-          `bg-${themeStore.getThemeColor('50')}`,
+          'mb-6 flex items-center gap-2 rounded-lg px-4 py-2',
+          `bg-${themeStore.getThemeColor('600')}`,
           `dark:bg-${themeStore.getThemeColor('800')}`,
-          'shadow-lg transition-transform hover:scale-105',
+          `text-${themeStore.getThemeColor('50')}`,
+          `dark:text-${themeStore.getThemeColor('50')}`,
+          'shadow-lg transition-transform hover:scale-[1.02]',
         ]"
       >
         <Icon
           icon="material-symbols:arrow-back-rounded"
-          class="h-5 w-5"
+          class="w-5 h-5"
         />
         <span>Back to recipes</span>
-      </button>
+      </Button>
       <div class="grid gap-8 lg:grid-cols-12">
         <div
           :class="[
@@ -58,7 +60,7 @@
             <img
               :src="meal.strMealThumb"
               :alt="meal.strMeal"
-              class="mb-6 aspect-square w-full rounded-lg object-cover shadow-lg"
+              class="object-cover w-full mb-6 rounded-lg shadow-lg aspect-square"
             />
             <h1
               :class="[
@@ -69,7 +71,7 @@
             >
               {{ meal.strMeal }}
             </h1>
-            <div class="mb-6 flex flex-wrap gap-3">
+            <div class="flex flex-wrap gap-3 mb-6">
               <span
                 v-for="(tag, index) in [
                   { icon: 'material-symbols:category', text: meal.strCategory },
@@ -95,8 +97,9 @@
               :class="[
                 'flex w-full items-center justify-center gap-2 rounded-lg px-6 py-3 font-medium text-white',
                 `bg-${themeStore.getThemeColor('600')}`,
-                `hover:bg-${themeStore.getThemeColor('700')}`,
-                'transition-all hover:scale-105',
+                `dark:bg-${themeStore.getThemeColor('800')}`,
+                `hover:bg-red-600 dark:hover:bg-red-600`,
+                'transition-all hover:scale-[1.02]',
               ]"
             >
               <Icon
@@ -139,7 +142,7 @@
                   <img
                     :src="`https://www.themealdb.com/images/ingredients/${i.ingredient}-Small.png`"
                     :alt="i.ingredient"
-                    class="h-12 w-12 rounded object-cover"
+                    class="object-cover w-12 h-12 rounded"
                   />
                   <div>
                     <span class="font-medium">{{ i.ingredient }}</span>
@@ -200,6 +203,7 @@
   </div>
 </template>
 <script setup>
+  import Button from '@/components/ui/button/Button.vue';
   import { useMealById } from '@/stores/useMealById';
   import { useThemeStore } from '@/stores/useThemeStore';
   import { Icon } from '@iconify/vue';
