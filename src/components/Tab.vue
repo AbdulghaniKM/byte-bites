@@ -5,7 +5,7 @@
       isActive
         ? `bg-${themeColor('600')} text-white`
         : `bg-${themeColor('200')} dark:bg-${themeColor('800')}`,
-      isLoading && 'opacity-50 cursor-not-allowed'
+      isLoading && 'cursor-not-allowed opacity-50',
     ]"
     @click="$emit('click')"
     :disabled="isLoading"
@@ -23,23 +23,19 @@
     </div>
   </button>
 </template>
-
 <script setup>
-import { useThemeStore } from '@/stores/useThemeStore';
-
-const props = defineProps({
-  isActive: {
-    type: Boolean,
-    default: false
-  },
-  isLoading: {
-    type: Boolean,
-    default: false
-  }
-});
-
-defineEmits(['click']);
-
-const themeStore = useThemeStore();
-const themeColor = (shade) => themeStore.getThemeColor(shade);
+  import { useThemeStore } from '@/stores/useThemeStore';
+  const props = defineProps({
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
+    isLoading: {
+      type: Boolean,
+      default: false,
+    },
+  });
+  defineEmits(['click']);
+  const themeStore = useThemeStore();
+  const themeColor = (shade) => themeStore.getThemeColor(shade);
 </script>

@@ -8,13 +8,12 @@
       `border-${themeStore.getThemeColor('800')} dark:border-${themeStore.getThemeColor('300')}`,
     ]"
   >
-    <div class="container px-4 mx-auto">
-      <!-- Desktop Menu -->
-      <div class="items-center justify-between hidden sm:flex">
+    <div class="container mx-auto px-4">
+      <div class="hidden items-center justify-between sm:flex">
         <div class="flex items-center space-x-8">
           <router-link
             to="/"
-            class="text-2xl font-bold text-white transition-transform duration-200 transform hover:scale-105"
+            class="transform text-2xl font-bold text-white transition-transform duration-200 hover:scale-105"
           >
             Byte-Bites
           </router-link>
@@ -32,21 +31,19 @@
         </div>
         <ThemeControls />
       </div>
-
-      <!-- Mobile Menu -->
       <div class="flex items-center justify-between sm:hidden">
         <router-link
           to="/"
-          class="text-xl font-bold text-white transition-transform duration-200 transform hover:scale-105"
+          class="transform text-xl font-bold text-white transition-transform duration-200 hover:scale-105"
         >
           Byte-Bites
         </router-link>
         <button
           @click="toggleMenu"
-          class="relative z-50 p-2 text-white rounded-lg"
+          class="relative z-50 rounded-lg p-2 text-white"
           aria-label="Toggle menu"
         >
-          <div class="relative w-6 h-6">
+          <div class="relative h-6 w-6">
             <div
               :class="[
                 'absolute h-0.5 w-6 transform bg-current transition-all duration-300',
@@ -84,7 +81,7 @@
             isMenuOpen ? 'translate-x-0' : 'translate-x-full',
           ]"
         >
-          <div class="flex flex-col h-full p-6">
+          <div class="flex h-full flex-col p-6">
             <nav class="space-y-4">
               <router-link
                 v-for="link in navigationLinks"
@@ -107,24 +104,19 @@
     </div>
   </header>
 </template>
-
 <script setup>
   import ThemeControls from '@/components/ThemeControls.vue';
   import { useThemeStore } from '@/stores/useThemeStore';
   import { ref, watch } from 'vue';
   import { useRoute } from 'vue-router';
-
   const route = useRoute();
   const themeStore = useThemeStore();
   const isMenuOpen = ref(false);
-
   const navigationLinks = [];
-
   function toggleMenu() {
     isMenuOpen.value = !isMenuOpen.value;
     document.body.style.overflow = isMenuOpen.value ? 'hidden' : '';
   }
-
   watch(route, () => {
     if (isMenuOpen.value) {
       isMenuOpen.value = false;

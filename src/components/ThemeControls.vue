@@ -1,6 +1,5 @@
 <template>
   <div class="flex items-center space-x-4">
-    <!-- Theme Selector -->
     <button
       @click="isThemeMenuOpen = !isThemeMenuOpen"
       class="flex items-center space-x-2 rounded-lg bg-white/10 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-white/20"
@@ -11,15 +10,11 @@
       />
       <span class="capitalize">{{ themeStore.currentTheme }}</span>
     </button>
-
-    <!-- Dark Mode Toggle -->
     <IconButton
       @click="themeStore.toggleDarkMode"
       :icon="themeStore.isDarkMode ? 'solar:moon-bold' : 'solar:sun-bold'"
       class="rounded-lg bg-white/10 px-4 py-2 font-medium text-white transition-all hover:bg-white/20"
     />
-
-    <!-- Theme Menu -->
     <div
       v-if="isThemeMenuOpen"
       ref="themeMenuRef"
@@ -42,26 +37,22 @@
     </div>
   </div>
 </template>
-
 <script setup>
-import { ref } from 'vue';
-import { Icon } from '@iconify/vue';
-import { onClickOutside } from '@vueuse/core';
-import IconButton from '@/components/IconButton.vue';
-import { useThemeStore } from '@/stores/useThemeStore';
-
-const themeStore = useThemeStore();
-const isThemeMenuOpen = ref(false);
-const themeMenuRef = ref(null);
-
-function handleThemeSelect(theme) {
-  themeStore.setTheme(theme);
-  isThemeMenuOpen.value = false;
-}
-
-onClickOutside(themeMenuRef, () => {
-  if (isThemeMenuOpen.value) {
+  import IconButton from '@/components/IconButton.vue';
+  import { useThemeStore } from '@/stores/useThemeStore';
+  import { Icon } from '@iconify/vue';
+  import { onClickOutside } from '@vueuse/core';
+  import { ref } from 'vue';
+  const themeStore = useThemeStore();
+  const isThemeMenuOpen = ref(false);
+  const themeMenuRef = ref(null);
+  function handleThemeSelect(theme) {
+    themeStore.setTheme(theme);
     isThemeMenuOpen.value = false;
   }
-});
+  onClickOutside(themeMenuRef, () => {
+    if (isThemeMenuOpen.value) {
+      isThemeMenuOpen.value = false;
+    }
+  });
 </script>

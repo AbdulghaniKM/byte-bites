@@ -29,14 +29,12 @@
     </CardHeader>
   </Card>
 </template>
-
 <script setup>
   import IconButton from '@/components/IconButton.vue';
   import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
   import { useMealById } from '@/stores/useMealById';
   import { useThemeStore } from '@/stores/useThemeStore';
   import { useRouter } from 'vue-router';
-
   const props = defineProps({
     title: {
       type: String,
@@ -48,11 +46,9 @@
       required: true,
     },
   });
-
   const themeStore = useThemeStore();
   const router = useRouter();
   const mealStore = useMealById();
-
   const goToDetails = async () => {
     await mealStore.fetchMealById(props.id);
     router.push(`/details/${props.id}`);

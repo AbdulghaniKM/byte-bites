@@ -7,7 +7,6 @@
       `dark:bg-${themeStore.getThemeColor('950')}`,
     ]"
   >
-    <!-- Loading State -->
     <div
       v-if="isLoading"
       class="flex min-h-[80vh] items-center justify-center"
@@ -20,8 +19,6 @@
         ]"
       ></div>
     </div>
-
-    <!-- Error State -->
     <div
       v-else-if="error"
       class="p-8 text-center"
@@ -30,12 +27,10 @@
         {{ error }}
       </p>
     </div>
-
     <div
       v-else-if="meal"
       class="mx-auto max-w-6xl"
     >
-      <!-- Back Button -->
       <button
         @click="router.back()"
         :class="[
@@ -51,9 +46,7 @@
         />
         <span>Back to recipes</span>
       </button>
-
       <div class="grid gap-8 lg:grid-cols-12">
-        <!-- Left Column -->
         <div
           :class="[
             'overflow-hidden rounded-xl shadow-xl lg:col-span-4',
@@ -67,7 +60,6 @@
               :alt="meal.strMeal"
               class="mb-6 aspect-square w-full rounded-lg object-cover shadow-lg"
             />
-
             <h1
               :class="[
                 'mb-4 text-2xl font-bold',
@@ -77,7 +69,6 @@
             >
               {{ meal.strMeal }}
             </h1>
-
             <div class="mb-6 flex flex-wrap gap-3">
               <span
                 v-for="(tag, index) in [
@@ -97,7 +88,6 @@
                 {{ tag.text }}
               </span>
             </div>
-
             <a
               v-if="meal.strYoutube"
               :href="meal.strYoutube"
@@ -117,10 +107,7 @@
             </a>
           </div>
         </div>
-
-        <!-- Right Column -->
         <div class="space-y-8 lg:col-span-8">
-          <!-- Ingredients Card -->
           <div
             :class="[
               'overflow-hidden rounded-xl shadow-xl',
@@ -170,8 +157,6 @@
               </div>
             </div>
           </div>
-
-          <!-- Instructions Card -->
           <div
             :class="[
               'overflow-hidden rounded-xl shadow-xl',
@@ -214,21 +199,17 @@
     </div>
   </div>
 </template>
-
 <script setup>
-  import { onMounted } from 'vue';
-  import { useRoute, useRouter } from 'vue-router';
   import { useMealById } from '@/stores/useMealById';
   import { useThemeStore } from '@/stores/useThemeStore';
   import { Icon } from '@iconify/vue';
-
+  import { onMounted } from 'vue';
+  import { useRoute, useRouter } from 'vue-router';
   const route = useRoute();
   const router = useRouter();
   const mealStore = useMealById();
   const themeStore = useThemeStore();
   const { meal, isLoading, error } = mealStore;
-
-  // Helper function to get ingredients
   const getIngredients = (meal) => {
     const ingredients = [];
     for (let i = 1; i <= 20; i++) {
@@ -243,7 +224,6 @@
     }
     return ingredients;
   };
-
   onMounted(async () => {
     if (!meal.value && route.params.id) {
       await mealStore.fetchMealById(route.params.id);

@@ -7,7 +7,6 @@
       `dark:bg-${themeStore.getThemeColor('950')}`,
     ]"
   >
-    <!-- Header Section with fixed height -->
     <div class="w-full">
       <h1
         class="mb-8 text-center text-3xl font-bold"
@@ -19,7 +18,6 @@
       >
         Welcome to Byte-Bites, your go-to destination for delicious recipes!
       </h1>
-      <!-- Category Tabs -->
       <div class="relative mb-8 w-full max-w-full">
         <div
           ref="tabsContainer"
@@ -39,7 +37,6 @@
             </Tab>
           </div>
         </div>
-        <!-- Refined Gradient Shadows -->
         <div
           class="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r opacity-90"
           :class="[
@@ -58,10 +55,7 @@
         ></div>
       </div>
     </div>
-
-    <!-- Content Section -->
     <div class="w-full">
-      <!-- Loading State with Skeletons -->
       <div
         v-if="store.isLoading"
         class="grid w-full grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
@@ -78,30 +72,23 @@
           <div class="flex flex-row items-center justify-between p-6">
             <div class="flex flex-row items-center gap-4">
               <div class="flex items-center gap-2 p-2">
-                <!-- Skeleton Image -->
                 <div class="h-28 w-28 rounded-xl bg-gray-200 dark:bg-gray-700"></div>
               </div>
-              <!-- Skeleton Title -->
               <div class="flex-1 space-y-2">
                 <div class="h-4 w-3/4 rounded bg-gray-200 dark:bg-gray-700"></div>
                 <div class="h-4 w-1/2 rounded bg-gray-200 dark:bg-gray-700"></div>
               </div>
             </div>
-            <!-- Skeleton Button -->
             <div class="h-9 w-9 rounded-lg bg-gray-200 dark:bg-gray-700"></div>
           </div>
         </div>
       </div>
-
-      <!-- Error State -->
       <div
         v-else-if="store.error"
         class="rounded-lg bg-red-100 p-4 text-red-800 dark:bg-red-900 dark:text-red-100"
       >
         Failed to load meals. Please try again.
       </div>
-
-      <!-- Meals Grid -->
       <div
         v-else
         class="grid w-full grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
@@ -119,7 +106,6 @@
     </div>
   </div>
 </template>
-
 <script setup>
   import Card from '@/components/Card.vue';
   import Tab from '@/components/Tab.vue';
@@ -133,27 +119,19 @@
   const meals = computed(() => store.meals);
   const themeStore = useThemeStore();
   const router = useRouter();
-
-  // Use the persisted category if available
   const activeCategory = computed({
     get: () => store.currentCategory,
     set: (value) => (store.currentCategory = value),
   });
-
   const filteredCategories = computed(() => {
     return mealsCat.categories.filter((cat) => cat.strCategory !== 'Pork');
   });
-
   const selectCategory = async (category) => {
-    // Don't do anything if already loading
     if (store.isLoading) return;
-
     activeCategory.value = category;
     await store.fetchMealsByCategory(category);
   };
-
   onMounted(async () => {
-    // Only fetch if we don't have data
     if (mealsCat.categories.length === 0) {
       await mealsCat.fetchCategory();
     }
@@ -162,14 +140,12 @@
     }
   });
 </script>
-
 <style scoped>
   .scrollbar-hide {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
-
   .scrollbar-hide::-webkit-scrollbar {
-    display: none; /* Chrome, Safari and Opera */
+    display: none;
   }
 </style>

@@ -17,8 +17,6 @@
     >
       All Categories & Meals
     </h1>
-
-    <!-- Loading State -->
     <div
       v-if="isLoading"
       :class="[
@@ -29,16 +27,12 @@
     >
       Loading categories and meals...
     </div>
-
-    <!-- Error State -->
     <div
       v-else-if="error"
       class="p-4 text-red-800 bg-red-100 rounded-lg dark:bg-red-900 dark:text-red-100"
     >
       Failed to load content. Please try again.
     </div>
-
-    <!-- Categories and Meals -->
     <div
       v-else
       class="w-full space-y-12 max-w-7xl"
@@ -58,7 +52,6 @@
         >
           {{ category.strCategory }}
         </h2>
-
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           <Card
             v-for="meal in categoryMeals[category.strCategory]"
@@ -74,33 +67,26 @@
     </div>
   </div>
 </template>
-
 <script setup>
   import Card from '@/components/Card.vue';
   import { useThemeStore } from '@/stores/useThemeStore';
   import { computed, onMounted, ref } from 'vue';
   import { useMealsCat } from '../stores/useMealsCat';
   import { useMealByCat } from '../stores/useMealByCat';
-
   const mealsCat = useMealsCat();
   const mealStore = useMealByCat();
   const themeStore = useThemeStore();
-
   const isLoading = ref(true);
   const error = ref(false);
   const categoryMeals = ref({});
-
   const filteredCategories = computed(() => {
     return mealsCat.categories.filter((cat) => cat.strCategory !== 'Pork');
   });
-
   const fetchAllCategoryMeals = async () => {
     try {
       isLoading.value = true;
       error.value = false;
-
       await mealsCat.fetchCategory();
-
       for (const category of filteredCategories.value) {
         const meals = await mealStore.fetchMealsByCategory(category.strCategory);
         categoryMeals.value[category.strCategory] = meals;
@@ -112,7 +98,6 @@
       isLoading.value = false;
     }
   };
-
   onMounted(() => {
     fetchAllCategoryMeals();
   });

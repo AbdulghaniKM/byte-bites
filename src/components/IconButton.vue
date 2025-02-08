@@ -1,7 +1,7 @@
 <template>
   <Button
     :class="[
-      'rounded-lg border-none bg-hippie-blue-50 shadow-none transition-all',
+      'bg-hippie-blue-50 rounded-lg border-none shadow-none transition-all',
       `bg-${themeStore.getThemeColor('900')}`,
       `hover:bg-${themeStore.getThemeColor('900')}`,
       `dark:bg-${themeStore.getThemeColor('200')}/10`,
