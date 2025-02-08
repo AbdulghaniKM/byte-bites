@@ -9,7 +9,7 @@
   >
     <div class="w-full">
       <h1
-        class="mb-8 text-center text-3xl font-bold"
+        class="mb-8 text-3xl font-bold text-center"
         :class="[
           'transition-colors duration-300 ease-in-out',
           `text-${themeStore.getThemeColor('950')}`,
@@ -18,27 +18,27 @@
       >
         Welcome to Byte-Bites, your go-to destination for delicious recipes!
       </h1>
-      <div class="relative mb-8 w-full max-w-full">
+      <div class="relative w-full max-w-full mb-8">
         <div
           ref="tabsContainer"
-          class="scrollbar-hide flex overflow-x-auto"
+          class="flex overflow-x-auto scrollbar-hide"
           style="scroll-behavior: smooth"
         >
-          <div class="flex w-full space-x-4 px-4">
+          <div class="flex w-full px-4 space-x-4">
             <Tab
               v-for="category in filteredCategories"
               :key="category"
               :is-active="activeCategory === category.strCategory"
               :is-loading="store.isLoading"
               @click="selectCategory(category.strCategory)"
-              class="flex-shrink-0"
+              class="flex-shrink-0 cursor-pointer"
             >
               {{ category.strCategory }}
             </Tab>
           </div>
         </div>
         <div
-          class="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r opacity-90"
+          class="absolute inset-y-0 left-0 w-16 pointer-events-none bg-gradient-to-r opacity-90"
           :class="[
             `from-${themeStore.getThemeColor('100')}`,
             `dark:from-${themeStore.getThemeColor('950')}`,
@@ -46,7 +46,7 @@
           ]"
         ></div>
         <div
-          class="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l opacity-90"
+          class="absolute inset-y-0 right-0 w-16 pointer-events-none bg-gradient-to-l opacity-90"
           :class="[
             `from-${themeStore.getThemeColor('100')}`,
             `dark:from-${themeStore.getThemeColor('950')}`,
@@ -72,20 +72,20 @@
           <div class="flex flex-row items-center justify-between p-6">
             <div class="flex flex-row items-center gap-4">
               <div class="flex items-center gap-2 p-2">
-                <div class="h-28 w-28 rounded-xl bg-gray-200 dark:bg-gray-700"></div>
+                <div class="bg-gray-200 h-28 w-28 rounded-xl dark:bg-gray-700"></div>
               </div>
               <div class="flex-1 space-y-2">
-                <div class="h-4 w-3/4 rounded bg-gray-200 dark:bg-gray-700"></div>
-                <div class="h-4 w-1/2 rounded bg-gray-200 dark:bg-gray-700"></div>
+                <div class="w-3/4 h-4 bg-gray-200 rounded dark:bg-gray-700"></div>
+                <div class="w-1/2 h-4 bg-gray-200 rounded dark:bg-gray-700"></div>
               </div>
             </div>
-            <div class="h-9 w-9 rounded-lg bg-gray-200 dark:bg-gray-700"></div>
+            <div class="bg-gray-200 rounded-lg h-9 w-9 dark:bg-gray-700"></div>
           </div>
         </div>
       </div>
       <div
         v-else-if="store.error"
-        class="rounded-lg bg-red-100 p-4 text-red-800 dark:bg-red-900 dark:text-red-100"
+        class="p-4 text-red-800 bg-red-100 rounded-lg dark:bg-red-900 dark:text-red-100"
       >
         Failed to load meals. Please try again.
       </div>

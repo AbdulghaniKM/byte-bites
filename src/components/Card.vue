@@ -39,11 +39,13 @@
       <div class="hidden flex-row items-center justify-between gap-4 sm:flex">
         <div class="flex items-center gap-4">
           <div class="p-2">
-            <img
-              class="h-28 w-28 rounded-xl object-cover"
-              :src="image"
-              :alt="title"
-            />
+            <div class="relative h-28 w-28">
+              <img
+                class="absolute inset-0 h-full w-full rounded-xl object-cover"
+                :src="image"
+                :alt="title"
+              />
+            </div>
           </div>
           <CardTitle class="max-w-[200px] lg:max-w-[300px]">
             <span
