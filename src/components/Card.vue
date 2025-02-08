@@ -6,13 +6,18 @@
       <div class="flex flex-row items-center gap-4">
         <div class="flex items-center gap-2 p-2">
           <img
-            class="h-28 w-28 rounded-xl"
+            class="h-28 w-28 rounded-xl object-cover"
             :src="image"
-            alt="image"
+            :alt="title"
           />
         </div>
-        <CardTitle class="flex-1 leading-normal tracking-normal">
-          {{ title }}
+        <CardTitle class="max-w-[200px] flex-1 leading-normal tracking-normal lg:max-w-[300px]">
+          <span
+            class="line-clamp-2 break-words"
+            :title="title"
+          >
+            {{ title }}
+          </span>
         </CardTitle>
       </div>
       <CardContent>
@@ -28,6 +33,7 @@
 <script setup>
   import IconButton from '@/components/IconButton.vue';
   import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+  import { useMealById } from '@/stores/useMealById';
   import { useThemeStore } from '@/stores/useThemeStore';
   import { useRouter } from 'vue-router';
 
@@ -45,8 +51,10 @@
 
   const themeStore = useThemeStore();
   const router = useRouter();
+  const mealStore = useMealById();
 
-  const goToDetails = () => {
+  const goToDetails = async () => {
+    await mealStore.fetchMealById(props.id);
     router.push(`/details/${props.id}`);
   };
 </script>

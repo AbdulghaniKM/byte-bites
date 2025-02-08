@@ -32,7 +32,7 @@
     </div>
 
     <div
-      v-else-if="meal && meal.length > 0"
+      v-else-if="meal"
       class="mx-auto max-w-6xl"
     >
       <!-- Back Button -->
@@ -63,8 +63,8 @@
         >
           <div class="p-6">
             <img
-              :src="meal[0].strMealThumb"
-              :alt="meal[0].strMeal"
+              :src="meal.strMealThumb"
+              :alt="meal.strMeal"
               class="mb-6 aspect-square w-full rounded-lg object-cover shadow-lg"
             />
 
@@ -75,14 +75,14 @@
                 `dark:text-${themeStore.getThemeColor('50')}`,
               ]"
             >
-              {{ meal[0].strMeal }}
+              {{ meal.strMeal }}
             </h1>
 
             <div class="mb-6 flex flex-wrap gap-3">
               <span
                 v-for="(tag, index) in [
-                  { icon: 'material-symbols:category', text: meal[0].strCategory },
-                  { icon: 'material-symbols:location-on', text: meal[0].strArea },
+                  { icon: 'material-symbols:category', text: meal.strCategory },
+                  { icon: 'material-symbols:location-on', text: meal.strArea },
                 ]"
                 :key="index"
                 :class="[
@@ -99,8 +99,8 @@
             </div>
 
             <a
-              v-if="meal[0].strYoutube"
-              :href="meal[0].strYoutube"
+              v-if="meal.strYoutube"
+              :href="meal.strYoutube"
               target="_blank"
               :class="[
                 'flex w-full items-center justify-center gap-2 rounded-lg px-6 py-3 font-medium text-white',
@@ -141,7 +141,7 @@
               </h2>
               <div class="grid gap-4 sm:grid-cols-2">
                 <div
-                  v-for="i in getIngredients(meal[0])"
+                  v-for="i in getIngredients(meal)"
                   :key="i.ingredient"
                   :class="[
                     'flex items-center gap-3 rounded-lg p-3',
@@ -204,7 +204,7 @@
                     `dark:text-${themeStore.getThemeColor('300')}`,
                   ]"
                 >
-                  {{ meal[0].strInstructions }}
+                  {{ meal.strInstructions }}
                 </p>
               </div>
             </div>
@@ -224,8 +224,9 @@
 
   const route = useRoute();
   const router = useRouter();
-  const { meal, isLoading, error, fetchMealById } = useMealById();
+  const mealStore = useMealById();
   const themeStore = useThemeStore();
+  const { meal, isLoading, error } = mealStore;
 
   // Helper function to get ingredients
   const getIngredients = (meal) => {
@@ -244,6 +245,8 @@
   };
 
   onMounted(async () => {
-    await fetchMealById(route.params.id);
+    if (!meal.value && route.params.id) {
+      await mealStore.fetchMealById(route.params.id);
+    }
   });
 </script>
